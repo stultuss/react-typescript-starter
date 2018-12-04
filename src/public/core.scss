@@ -1,0 +1,48 @@
+:global {
+  @import '../../node_modules/normalize.css/normalize.css';
+
+  // Some best-practice CSS that's useful for most apps
+  // Just remove them if they're not what you want
+  html {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  span.red { color: red; }
+  span.yellow { color: yellow; }
+  span.orange { color: orange; }
+  span.green { color: green; }
+  span.gray { color: gray; }
+
+  img { vertical-align: middle; }
+
+  input, textarea, select, checkbox, radio {
+    outline: none;
+  }
+
+  .clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+
+  @media screen and (max-width: 425px) {
+    #wrapper {
+      //background: #0b97c4;
+    }
+  }
+
+  @media screen and (min-width: 426px) {
+    #wrapper {
+      //background: #000000;
+    }
+  }
+}
