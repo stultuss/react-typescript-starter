@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { hot } from 'react-hot-loader'
 import BaseComponent from './BaseComponent';
 
 export interface Props {
@@ -25,4 +26,4 @@ class Hello extends BaseComponent<Props, State> {
     }
 }
 
-export default Hello;
+export default hot(module)(Hello);

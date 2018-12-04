@@ -1,18 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es6", // 使用 ES2015 模块
+    // 源码使用 ES6 便携
+    "target": "es6",
+    // 使用 ES2015 模块
     "module": "commonjs",
-    "sourceMap": true, // 使 TypeScript 生成 source map
+    // 使 TypeScript 生成 source map
+    "sourceMap": true,
+    // 允许使用 JS 文件
     "allowJs": true,
-    "rootDir": "src", // TypeScript 代码所在位置
-    "outDir": "dist", // 构建输出目录 (因为我们大部分时间都在使用 Webpack，这里随便配置一个地址)
-    "jsx": "react", // 开启 JSX 模式, 但是 "preserve" 告诉 TypeScript 不要转换它(我们将使用 Babel)
-    "allowSyntheticDefaultImports": true, // 允许你使用 ES2015 默认的 imports 风格
+    // TypeScript 代码所在位置
+    "rootDir": "src",
+    // 构建输出目录 (因为我们大部分时间都在使用 Webpack，这里随便配置一个地址)
+    "outDir": "dist",
+    // 开启 JSX 模式, 但是 "preserve" 告诉 TypeScript 不要转换它(我们将使用 Babel)
+    "jsx": "react",
+    // 允许你使用 ES2015 默认的 imports 风格
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules"

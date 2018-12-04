@@ -1,5 +1,6 @@
 import webpackMerge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ForkTsCheckerPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import InlineManifestWebpackPlugin from 'inline-manifest-webpack-plugin';
 
@@ -33,7 +34,7 @@ const webpackConfig = {
 // ------------------------------------
 webpackConfig.entry = {
   main: [
-    'babel-polyfill',
+    '@babel/polyfill',
     paths.src('index.tsx')
   ]
 };
@@ -51,6 +52,8 @@ webpackConfig.output = {
 // Plugins
 // ------------------------------------
 webpackConfig.plugins = [
+  // 由于使用 babel-loader 替换了 ts-loader，所以 Babel 不会检查代码，此处需要额外添加 TsChecker 作为构建过程的一部分。
+  new ForkTsCheckerPlugin(),
   // 以 index.html 为模版，将打包的文件名插入到模版中
   new HtmlWebpackPlugin({
     template: paths.src('index.html'),
@@ -107,13 +110,28 @@ webpackConfig.module.rules = [
     use: 'json-loader'
   },
   {
-    test: /\.(ts|tsx)$/,
+    test: /\.(ts|tsx|js|jsx)$/,
     exclude: /node_modules/,
     use: [
       {
-        loader: 'ts-loader',
+        loader: 'babel-loader',
         options: {
-          transpileOnly: true,
+          cacheDirectory: true,
+          babelrc: false,
+          presets: [
+            [
+              '@babel/preset-env',
+              {targets: {browsers: 'last 2 versions'}} // or whatever your project requires
+            ],
+            '@babel/preset-typescript',
+            '@babel/preset-react'
+          ],
+          plugins: [
+            // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
+            ['@babel/plugin-proposal-decorators', {legacy: true}],
+            ['@babel/plugin-proposal-class-properties', {loose: true}],
+            'react-hot-loader/babel'
+          ]
         }
       }
     ],

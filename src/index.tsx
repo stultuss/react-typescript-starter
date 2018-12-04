@@ -1,9 +1,9 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as ReactRom from 'react-dom';
 
 import Hello from './containers/Hello';
 
-ReactDOM.render(
+ReactRom.render(
     <Hello name='fengjie'/>,
     document.getElementById('wrapper')
 );
