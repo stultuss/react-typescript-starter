@@ -8,7 +8,8 @@
     "clean": "rimraf dist",
     "start": "better-npm-run start",
     "compile": "better-npm-run compile",
-    "deploy": "better-npm-run deploy"
+    "deploy": "better-npm-run deploy",
+    "dist": "better-npm-run dist"
   },
   "betterScripts": {
     "start": {
@@ -20,12 +21,19 @@
     "compile": {
       "command": "babel-node bin/compile",
       "env": {
-        "NODE_ENV": "preview",
+        "NODE_ENV": "production",
         "DEBUG": "app:*"
       }
     },
     "deploy": {
       "command": "npm run clean &&npm run compile",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    },
+    "dist": {
+      "command": "npm run deploy && npm run start",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"
@@ -71,6 +79,7 @@
     "css-loader": "^1.0.1",
     "cssnano": "^4.1.7",
     "debug": "^4.1.0",
+    "file-loader": "^2.0.0",
     "fork-ts-checker-webpack-plugin": "^0.5.0",
     "html-webpack-plugin": "^3.2.0",
     "inline-manifest-webpack-plugin": "^4.0.2",

@@ -1,13 +1,14 @@
 import path from 'path';
 
 const debug = require('debug')('app:config');
+const version = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(/-/g, '').split(' ')[0];
 
 // ========================================================
 // 默认配置
 // ========================================================
 const config = {
   env: process.env.NODE_ENV || 'development',
-  render: process.env.RENDER || false,
+  version: version,
 
   // ----------------------------------
   // 项目文件夹配置
@@ -54,7 +55,7 @@ const base = (...args) => {
 config.utils_paths = {
   base: base,
   src: base.bind(null, config.dir_src),
-  dist: base.bind(null, config.dir_dist)
+  dist: base.bind(null, config.dir_dist),
 };
 
 // ------------------------------------

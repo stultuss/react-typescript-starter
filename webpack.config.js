@@ -10,7 +10,7 @@ const debug = require('debug')('app:webpack:config');
 const paths = config.utils_paths;
 const {__ENV__, __DEBUG__} = config.globals;
 
-debug('创建编译配置, 环境:' + __ENV__);
+debug(`创建编译配置, 环境: ${__ENV__}, 版本号: ${config.version}`);
 
 // ========================================================
 // Webpack 默认配置
@@ -137,12 +137,13 @@ webpackConfig.module.rules = [
     ],
   },
   {
-    test: /\.(png|jpg|gif)$/,
+    test: /\.(png|jpg|jpeg|gif|svg)$/,
     use: [
       {
         loader: 'url-loader',
         options: {
-          limit: 5000
+          limit: 4096, // 4k 以下的图片，都进行 base64
+          name: `assets_${config.version}/img/[name].[hash:8].[ext]`, // 这里没有 chunkhash 的计算
         }
       }
     ]
@@ -161,8 +162,8 @@ if (!__DEBUG__) {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: '[name].[chunkhash].css',
-      chunkFilename: '[id].[chunkhash].css'
+      filename: `assets_${config.version}/[name].[chunkhash:8].css`,
+      chunkFilename: `assets_${config.version}/[name].[chunkhash:8].css`,
     })
   );
   BASE_CSS_LOADER_USE.push(MiniCssExtractPlugin.loader);
@@ -172,7 +173,7 @@ if (!__DEBUG__) {
 BASE_CSS_LOADER_USE.push({
   loader: 'css-loader',
   options: {
-    modules: true,
+    modules: false,
     importLoaders: 1,
     minimize: false,  // 将使用 postcss 和 cssnano 进行最小化，所以此处不需要重复最小化
   }

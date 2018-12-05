@@ -15,20 +15,24 @@ module.exports = (config) => {
   // ========================================================
   const webpackConfig = {
     mode: 'production',
-    devtool: false,
+    devtool: 'source-map',
     entry: {},
     output: {},
     plugins: [],
     optimization: {},
-    module: {}
+    module: {},
+    performance: {
+      maxEntrypointSize: 512000, // 入口最大依赖文件大小设置为 500 KiB
+      maxAssetSize: 512000 // 单个资源文件大小设置为 500 KiB
+    }
   };
 
   // ------------------------------------
   // Bundle Output
   // ------------------------------------
   webpackConfig.output = {
-    filename: '[name].[chunkhash].bundle.js',
-    chunkFilename: '[name].[chunkhash].bundle.js',
+    filename: `assets_${config.version}/[name].[chunkhash:8].js`,
+    chunkFilename: `assets_${config.version}/[name].[chunkhash:8].js`,
     publicPath: config.server_public_path
   };
 

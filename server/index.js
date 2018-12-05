@@ -62,8 +62,8 @@ if (config.env === 'development') {
   // }
 
   // default router
-  app.use(async function (ctx, next) {
-    this.body = await LibFs.readFile(LibPath.join(__dirname, '..', 'dist', 'index.tpl'), {'encoding': 'utf8'});
+  app.use(async (ctx, next) => {
+    ctx.body  = await LibFs.readFile(LibPath.join(__dirname, '..', 'dist', 'index.tpl'), {'encoding': 'utf8'});
     await next();
   });
 }

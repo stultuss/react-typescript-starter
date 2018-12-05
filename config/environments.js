@@ -16,7 +16,8 @@ export default {
   // Overrides when NODE_ENV === 'preview'
   // ======================================================
   preview: (config) => ({
-    server_public_path: './', // 本地相对文件目录，file:// ....
+    compiler_html_filename: 'index.tpl',
+    server_public_path: '/',  // 远程相对文件目录
     server_plugins_gzip: {
       enabled: true,
       threshold: '100kb'
@@ -28,7 +29,7 @@ export default {
   // ======================================================
   production: (config) => ({
     compiler_html_filename: 'index.tpl',
-    server_public_path: '/', // 远程相对文件目录
+    server_public_path: '/',  // 远程相对文件目录
     server_plugins_gzip: {
       enabled: true,
       threshold: '100kb'

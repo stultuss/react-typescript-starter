@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import config from '../config';
 
 const debug = require('debug')('app:webpack:config');
 
@@ -35,9 +36,10 @@ module.exports = (config) => {
   // ------------------------------------
   // Bundle Output
   // ------------------------------------
+  // 开发模式走内存，所以不需要考虑浏览器缓存的问题，不用 chunkhash 进行命名
   webpackConfig.output = {
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
+    filename: `assets_${config.version}/[name].js`,
+    chunkFilename: `assets_${config.version}/[name].js`,
     publicPath: config.server_public_path
   };
 

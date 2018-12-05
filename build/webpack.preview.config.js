@@ -33,8 +33,8 @@ module.exports = (config) => {
   // Bundle Output
   // ------------------------------------
   webpackConfig.output = {
-    filename: '[name].[chunkhash].bundle.js',
-    chunkFilename: '[name].[chunkhash].bundle.js',
+    filename: `assets_${config.version}/[name].[chunkhash:8].js`,
+    chunkFilename: `assets_${config.version}/[name].[chunkhash:8].js`,
     publicPath: config.server_public_path
   };
 
