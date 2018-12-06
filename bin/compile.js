@@ -1,5 +1,6 @@
-import {fs} from 'mz';
+import * as LibFs from 'fs-extra';
 import webpack from 'webpack';
+
 import config from '../config';
 import webpackConfig from '../webpack.config';
 
@@ -63,7 +64,7 @@ const webpackCompiler = (webpackConfig) => {
     }
 
     debug('拷贝静态资源');
-    fs.copyFileSync(paths.src('public'), paths.dist());
+    LibFs.copySync(paths.src('public'), paths.dist());
   } catch (e) {
     debug('Webpack 编译器遇到错误:', e);
     process.exit(1);

@@ -1,5 +1,5 @@
-import config from '../config'
-import server from '../server'
+import server from '../server';
+import config from '../config';
 
 const debug = require('debug')('app:bin:server');
 const port = config.server_port;

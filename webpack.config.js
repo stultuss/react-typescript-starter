@@ -22,7 +22,9 @@ const webpackConfig = {
   output: {},
   plugins: [],
   optimization: {},
-  module: {},
+  module: {
+    rules: []
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
     modules: ['node_modules'],
@@ -52,8 +54,6 @@ webpackConfig.output = {
 // Plugins
 // ------------------------------------
 webpackConfig.plugins = [
-  // 由于使用 babel-loader 替换了 ts-loader，所以 Babel 不会检查代码，此处需要额外添加 TsChecker 作为构建过程的一部分。
-  new ForkTsCheckerPlugin(),
   // 以 index.html 为模版，将打包的文件名插入到模版中
   new HtmlWebpackPlugin({
     template: paths.src('index.html'),
@@ -156,8 +156,10 @@ webpackConfig.module.rules = [
 // 默认的 CSS_LOADER 配置
 const BASE_CSS_LOADER_USE = ['style-loader'];
 
-// 生产环境下比较推荐的做法是，使用 MiniCssExtractPlugin 将样式表抽离成专门的单独文件
 if (!__DEBUG__) {
+  // 由于使用 babel-loader 替换了 ts-loader，所以 Babel 不会检查代码，此处需要额外添加 TsChecker 作为构建过程的一部分。
+  webpackConfig.plugins.push(new ForkTsCheckerPlugin());
+  // 生产环境下比较推荐的做法是，使用 MiniCssExtractPlugin 将样式表抽离成专门的单独文件
   webpackConfig.plugins.push(
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output

@@ -1,11 +1,11 @@
-import koaCompress from 'koa-compress';
+import * as koaCompress from 'koa-compress';
 
 class CompressHandler {
 
   register(options) {
     return koaCompress({
       threshold: options.threshold || '100kb',
-      flush: require('zlib').Z_BEST_SPEEDz
+      flush: require('zlib').Z_BEST_SPEED
     });
   }
 }

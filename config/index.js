@@ -1,4 +1,4 @@
-import path from 'path';
+import * as LibPath from 'path';
 
 const debug = require('debug')('app:config');
 const version = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(/-/g, '').split(' ')[0];
@@ -13,7 +13,7 @@ const config = {
   // ----------------------------------
   // 项目文件夹配置
   // ----------------------------------
-  path_base: path.resolve(__dirname, '..'),
+  path_base: LibPath.resolve(__dirname, '..'),
   dir_src: 'src',
   dir_dist: 'dist',
 
@@ -23,7 +23,7 @@ const config = {
   server_host: '127.0.0.1', // use string 'localhost' to prevent exposure on local network
   server_port: process.env.PORT || 8080,
   server_public_path: '/',
-  server_plugins_gzip : {
+  server_plugins_gzip: {
     enabled: false
   },
   // ----------------------------------
@@ -40,17 +40,17 @@ const config = {
   compiler_html_filename: 'index.html',
   compiler_vendor: [
     'react',
-    'react-dom'
-  ]
+    'react-dom',
+    'react-router',
+    'react-router-dom'
+  ],
 };
 
 // ------------------------------------
 // 工具
 // ------------------------------------
-const resolve = path.resolve;
-const base = (...args) => {
-  return Reflect.apply(resolve, null, [config.path_base, ...args]);
-};
+const resolve = LibPath.resolve;
+const base = (...args) => Reflect.apply(resolve, null, [config.path_base, ...args]);
 
 config.utils_paths = {
   base: base,
@@ -61,14 +61,12 @@ config.utils_paths = {
 // ------------------------------------
 // 环境变量
 // ------------------------------------
-// N.B.: 这里添加的全局变量也必须添加到 .eslintrc 中
 config.globals = {
   'process.env': {
-    'NODE_ENV': JSON.stringify(config.env)
+    'NODE_ENV': config.env
   },
   '__ENV__': config.env,
-  '__DEBUG__': config.env === 'development',
-  '__BASENAME__': JSON.stringify(process.env.BASENAME || '')
+  '__DEBUG__': config.env === 'development'
 };
 
 // ========================================================
@@ -76,7 +74,7 @@ config.globals = {
 // ========================================================
 debug(`根据环境配置覆盖默认配置, NODE_ENV: "${config.env}"`);
 
-const environments = require('./environments').default;
+const environments = require('./environments');
 const overrides = environments[config.env];
 if (overrides) {
   debug(`环境配置已启用`);

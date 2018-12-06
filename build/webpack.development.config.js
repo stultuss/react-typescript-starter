@@ -1,5 +1,4 @@
-import webpack from 'webpack';
-import config from '../config';
+import * as webpack from 'webpack';
 
 const debug = require('debug')('app:webpack:config');
 

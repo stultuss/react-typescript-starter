@@ -31,11 +31,12 @@ export default (compiler, assetPath) => {
     // 关闭服务器端渲染模式。(未做测试，对于开启有何影响，暂不确定)
     serverSideRender: false,
   });
-  // {
-  // }
+
   return async (ctx, next) => {
     let hasNext = await applyExpressMiddleware(middleware, ctx.req, {
-      end: (content) => (ctx.body = content),
+      end: function (content) {
+        ctx.body = content;
+      },
       setHeader: function () {
         ctx.set.apply(ctx, arguments);
       }

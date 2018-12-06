@@ -1,15 +1,19 @@
 import * as LibPath from 'path';
 import * as LibFs from 'mz/fs';
-import webpack from 'webpack'
-import webpackDevMiddleware from './middleware/webpack-dev'
-import webpackHMRMiddleware from './middleware/webpack-hmr'
-import Koa from 'koa'
-import koaStatic from 'koa-static'
-import koaHistoryApiFallback from 'koa-connect-history-api-fallback'
-import compressHandlerMiddleware from './middleware/compress-handler'
+import webpack from 'webpack';
+import Koa from 'koa';
+import koaStatic from 'koa-static';
+import koaHistoryApiFallback from 'koa-connect-history-api-fallback';
 
-import config from '../config'
-import webpackConfig from '../webpack.config'
+import compressHandlerMiddleware from './middleware/compress-handler';
+import requestHandlerMiddleware from './middleware/request-handler';
+import webpackDevMiddleware from './middleware/webpack-dev';
+import webpackHMRMiddleware from './middleware/webpack-hmr';
+import ssr from './ssr';
+
+import config from '../config';
+import webpackConfig from '../webpack.config';
+
 const paths = config.utils_paths;
 
 // 创建 KOA 服务器
@@ -30,42 +34,25 @@ app.use(koaHistoryApiFallback({
 // ------------------------------------
 if (config.env === 'development') {
   const compiler = webpack(webpackConfig);
-  const { publicPath } = webpackConfig.output;
+  const {publicPath} = webpackConfig.output;
 
+  // 启用静态资源服务，路径`~/src/public`
+  app.use(koaStatic(paths.src('public')));
   // 启用 webpack-dev 开发组件
   app.use(webpackDevMiddleware(compiler, publicPath));
   // 启用 webpack-hmr 热替换
   app.use(webpackHMRMiddleware(compiler));
-  // 启用静态资源服务，路径`~/src/public`
-  app.use(koaStatic(paths.src('public')));
 } else {
   // 启用静态资源服务，路径`~/dist`，在 compile 命令中，会将这个文件夹拷贝到 `~/dist`
   app.use(koaStatic(paths.dist()));
-
+  // 启用请求分析
+  app.use(requestHandlerMiddleware.register());
   // 启用服务端渲染 SSR
-  // if (config.render === 'server') {
-  //   // server in production with server render.
-  //   app.use(convert(function *(next) {
-  //     let staticPath = path.join(__dirname, '..', 'dist');
-  //     let distServer = require(staticPath + '/server.js').default;
-  //     const res = yield distServer(this, staticPath);
-  //     if (res.status === 302) {
-  //       this.status = res.status;
-  //       this.redirect(res.redirectPath);
-  //     } else if (res.status === 200) {
-  //       this.body   = res.body
-  //     } else {
-  //       this.body   = res.body;
-  //       this.status = res.status;
-  //     }
-  //   }));
-  // }
-
-  // default router
+  app.use(async (ctx, next) => await ssr(ctx, next, paths.dist()));
+  // 默认路由
   app.use(async (ctx, next) => {
-    ctx.body  = await LibFs.readFile(LibPath.join(__dirname, '..', 'dist', 'index.tpl'), {'encoding': 'utf8'});
-    await next();
+    ctx.body = await LibFs.readFile(LibPath.join(__dirname, '..', 'dist', 'index.tpl'), {'encoding': 'utf8'});
   });
 }
 
-export default app
+export default app;
