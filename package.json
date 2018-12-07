@@ -7,6 +7,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "start": "better-npm-run start",
+    "start:dist": "better-npm-run start:dist",
     "compile": "better-npm-run compile",
     "deploy": "better-npm-run deploy",
     "dist": "better-npm-run dist"
@@ -15,6 +16,13 @@
     "start": {
       "command": "babel-node bin/server",
       "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "start:dist": {
+      "command": "babel-node bin/server",
+      "env": {
+        "NODE_ENV": "production",
         "DEBUG": "app:*"
       }
     },
@@ -112,6 +120,7 @@
     "webpack": "^4.26.0",
     "webpack-dev-middleware": "^3.4.0",
     "webpack-hot-middleware": "^2.24.3",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.4",
+    "webpack-node-externals": "^1.7.2"
   }
 }

@@ -103,6 +103,16 @@ webpackConfig.optimization = {
 // ------------------------------------
 // Modules - TypeScript Loaders
 // ------------------------------------
+const BABEL_LOADER_PLUGINS = [
+  // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
+  ['@babel/plugin-proposal-decorators', {legacy: true}],
+  ['@babel/plugin-proposal-class-properties', {loose: true}],
+];
+
+if (__DEBUG__) {
+  BABEL_LOADER_PLUGINS.push('react-hot-loader/babel')
+}
+
 // TypeScript / JSON
 webpackConfig.module.rules = [
   {
@@ -126,12 +136,7 @@ webpackConfig.module.rules = [
             '@babel/preset-typescript',
             '@babel/preset-react'
           ],
-          plugins: [
-            // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
-            ['@babel/plugin-proposal-decorators', {legacy: true}],
-            ['@babel/plugin-proposal-class-properties', {loose: true}],
-            'react-hot-loader/babel'
-          ]
+          plugins: BABEL_LOADER_PLUGINS
         }
       }
     ],
@@ -142,7 +147,8 @@ webpackConfig.module.rules = [
       {
         loader: 'url-loader',
         options: {
-          limit: 4096, // 4k 以下的图片，都进行 base64
+          // limit: 4096, // 4k 以下的图片，都进行 base64
+          limit: 1024, // 4k 以下的图片，都进行 base64
           name: `assets_${config.version}/img/[name].[hash:8].[ext]`, // 这里没有 chunkhash 的计算
         }
       }
@@ -210,7 +216,7 @@ webpackConfig.module.rules.push({
 });
 
 // 合并 webpack 配置
-export default webpackMerge(
+export default  webpackMerge(
   webpackConfig,  // 默认配置
   require(`./build/webpack.${__ENV__}.config`)(config) // 根据环境变量，载入 Webpack 配置
 );

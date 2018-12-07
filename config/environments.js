@@ -21,7 +21,25 @@ export default {
     server_plugins_gzip: {
       enabled: true,
       threshold: '100kb'
-    }
+    },
+    server_react_render: {
+      enabled: false
+    },
+  }),
+
+  // ======================================================
+  // Overrides when NODE_ENV === 'preview'
+  // ======================================================
+  preview: (config) => ({
+    compiler_html_filename: 'index.tpl',
+    server_public_path: '/',  // 远程相对文件目录
+    server_plugins_gzip: {
+      enabled: true,
+      threshold: '100kb'
+    },
+    server_react_render: {
+      enabled: true
+    },
   }),
 
   // ======================================================
@@ -33,6 +51,9 @@ export default {
     server_plugins_gzip: {
       enabled: true,
       threshold: '100kb'
-    }
+    },
+    server_react_render: {
+      enabled: true
+    },
   })
 };

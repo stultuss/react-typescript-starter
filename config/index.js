@@ -26,6 +26,9 @@ const config = {
   server_plugins_gzip: {
     enabled: false
   },
+  server_react_render: {
+    enabled: false
+  },
   // ----------------------------------
   // 单元测试配置
   // ----------------------------------
@@ -66,7 +69,8 @@ config.globals = {
     'NODE_ENV': config.env
   },
   '__ENV__': config.env,
-  '__DEBUG__': config.env === 'development'
+  '__SSR__': config.env === 'development' ? false : config.server_react_render.enabled, // 只有 production 才可以开启服务端渲染（偷懒）
+  '__DEBUG__': config.env === 'development',
 };
 
 // ========================================================
@@ -74,7 +78,7 @@ config.globals = {
 // ========================================================
 debug(`根据环境配置覆盖默认配置, NODE_ENV: "${config.env}"`);
 
-const environments = require('./environments');
+const environments = require('./environments').default;
 const overrides = environments[config.env];
 if (overrides) {
   debug(`环境配置已启用`);

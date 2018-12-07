@@ -9,12 +9,10 @@ import compressHandlerMiddleware from './middleware/compress-handler';
 import requestHandlerMiddleware from './middleware/request-handler';
 import webpackDevMiddleware from './middleware/webpack-dev';
 import webpackHMRMiddleware from './middleware/webpack-hmr';
-import ssr from './ssr';
-
 import config from '../config';
-import webpackConfig from '../webpack.config';
 
 const paths = config.utils_paths;
+const {__DEBUG__, __SSR__} = config.globals;
 
 // 创建 KOA 服务器
 const app = new Koa();
@@ -25,14 +23,17 @@ if (config.server_plugins_gzip && config.server_plugins_gzip.enabled === true) {
 }
 
 // 将所有路由请求到根目录的 index.html，如果你想实现渲染同构，则需要删除这个中间件
-app.use(koaHistoryApiFallback({
-  verbose: false
-}));
+if (__DEBUG__ || __SSR__ === false) {
+  app.use(koaHistoryApiFallback({
+    verbose: false
+  }));
+}
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------
-if (config.env === 'development') {
+if (__DEBUG__) {
+  const webpackConfig = require('../webpack.config').default;
   const compiler = webpack(webpackConfig);
   const {publicPath} = webpackConfig.output;
 
@@ -48,11 +49,30 @@ if (config.env === 'development') {
   // 启用请求分析
   app.use(requestHandlerMiddleware.register());
   // 启用服务端渲染 SSR
-  app.use(async (ctx, next) => await ssr(ctx, next, paths.dist()));
+  app.use(async (ctx, next) => {
+    let fileName = LibPath.join(paths.dist(), 'ssr.js');
+    if (__SSR__ || await LibFs.exists(fileName)) {
+      let res = await require(fileName).default(ctx, paths.dist());
+      switch (res.status) {
+        case 302:
+          ctx.status = res.status;
+          ctx.redirect(res.url);
+          return;
+        case 200:
+          ctx.status = res.status;
+          ctx.body = res.body;
+          return;
+      }
+    }
+    await next();
+  });
+
   // 默认路由
   app.use(async (ctx, next) => {
     ctx.body = await LibFs.readFile(LibPath.join(__dirname, '..', 'dist', 'index.tpl'), {'encoding': 'utf8'});
+    await next();
   });
+
 }
 
 export default app;
