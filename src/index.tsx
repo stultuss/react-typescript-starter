@@ -1,20 +1,18 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { hot } from 'react-hot-loader'
-import { BrowserRouter } from 'react-router-dom'
-import Entity from './containers/Entity';
+import {BrowserRouter} from 'react-router-dom';
+import AppContainer from './containers/App';
 
 // ========================================================
 // Render Setup
 // ========================================================
-let MOUNT_NODE = document.getElementById('wrapper');
-let ENTITY_COMPONENT = (process.env.NODE_ENV === 'development' && module.hot) ? hot(module)(Entity) : Entity;
+let node = document.getElementById('wrapper');
 let render = () => {
     ReactDom.render(
         <BrowserRouter>
-            <ENTITY_COMPONENT/>
+            <AppContainer/>
         </BrowserRouter>,
-        MOUNT_NODE
+        node
     );
 };
 
@@ -25,7 +23,7 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     const renderApp = render;
     const renderError = (error) => {
         const RedBox = require('redbox-react');
-        ReactDom.render(<RedBox error={ error }/>, MOUNT_NODE);
+        ReactDom.render(<RedBox error={ error }/>, node);
     };
 
     render = () => {

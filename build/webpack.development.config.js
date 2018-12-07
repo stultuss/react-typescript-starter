@@ -46,10 +46,10 @@ module.exports = (config) => {
   // Plugins
   // ------------------------------------
   debug('启用开发模式插件(HMR)');
-  debug('步骤1：~/webpack.config.js 的 entry 配置 `webpack-hot-middleware/client?path=${config.server_public_path}__webpack_hmr`');
-  debug('步骤2：~/webpack.config.js 的 plugins 配置 new webpack.HotModuleReplacementPlugin()');
-  debug('步骤3：~/server/index.js 中 koa 使用 webpack-dev-middleware 中间件');
-  debug('步骤4：~/server/index.js 中 koa 使用 webpack-hot-middleware 中间件');
+  // debug('步骤1：~/webpack.config.js 的 entry 配置 `webpack-hot-middleware/client?path=${config.server_public_path}__webpack_hmr`');
+  // debug('步骤2：~/webpack.config.js 的 plugins 配置 new webpack.HotModuleReplacementPlugin()');
+  // debug('步骤3：~/server/index.js 中 koa 使用 webpack-dev-middleware 中间件');
+  // debug('步骤4：~/server/index.js 中 koa 使用 webpack-hot-middleware 中间件');
 
   webpackConfig.plugins = [
     new webpack.HotModuleReplacementPlugin(), // 启用 HMR

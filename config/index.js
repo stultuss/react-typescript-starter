@@ -61,18 +61,6 @@ config.utils_paths = {
   dist: base.bind(null, config.dir_dist),
 };
 
-// ------------------------------------
-// 环境变量
-// ------------------------------------
-config.globals = {
-  'process.env': {
-    'NODE_ENV': config.env
-  },
-  '__ENV__': config.env,
-  '__SSR__': config.env === 'development' ? false : config.server_react_render.enabled, // 只有 production 才可以开启服务端渲染（偷懒）
-  '__DEBUG__': config.env === 'development',
-};
-
 // ========================================================
 // 根据环境变量覆盖默认配置
 // ========================================================
@@ -86,6 +74,18 @@ if (overrides) {
 } else {
   debug(`环境配置未启用，没有找到该环境配置，启用默认配置`);
 }
+
+// ------------------------------------
+// 环境变量
+// ------------------------------------
+config.globals = {
+  'process.env': {
+    'NODE_ENV': config.env
+  },
+  '__ENV__': config.env,
+  '__SSR__': config.env === 'development' ? false : config.server_react_render.enabled, // 只有 production 才可以开启服务端渲染（偷懒）
+  '__DEBUG__': config.env === 'development',
+};
 
 // ------------------------------------
 // Validate Vendor Dependencies

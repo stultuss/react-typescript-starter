@@ -3,13 +3,13 @@ import * as LibFs from 'mz/fs';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router-dom';
-import Entity from './containers/Entity';
+import AppContainer from './containers/App';
 
 export default async (ctx, staticPath) => {
     const context = {} as any;
     const html = ReactDOMServer.renderToString(
         <StaticRouter location={ ctx.req.url } context={ context }>
-            <Entity/>
+            <AppContainer/>
         </StaticRouter>
     );
 
