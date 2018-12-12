@@ -88,6 +88,7 @@ webpackConfig.module.rules = [
           ],
           plugins: [
             // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
+            '@babel/plugin-syntax-dynamic-import',
             ['@babel/plugin-proposal-decorators', {legacy: true}],
             ['@babel/plugin-proposal-class-properties', {loose: true}]
           ]

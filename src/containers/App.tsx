@@ -24,7 +24,8 @@ class App extends BaseComponent<any, any> {
                     <Link to={ '/page3' }>Page3</Link>
                 </header>
                 <Switch>
-                    <Route path="/" exact component={ Home }/>
+                    /** 这里用 exact，仅仅是担心 location 被 path='/'截胡了。 **/
+                    <Route path="/" exact component={ Home } loadData={{ name: 'fengjie' }}/>
                     <Route path="/page1" component={ Page1 }/>
                     <Route path="/page2" component={ Page2 }/>
                     <Route component={ NotFound }/>
@@ -33,5 +34,12 @@ class App extends BaseComponent<any, any> {
         );
     }
 }
+
+/**
+ * strict 和 exact 的区别
+ * 使用了strict: location 大于等于 path 才能匹配, eg: path='/one' location='/one/a'能匹配。
+ * 使用了exact: location 约等于 path 才能匹配, eq: path='/one' location='/one'或者 '/one/'能匹配，所以说是约等于。
+ * 使用了exact 和 strict: location = path 才能匹配
+ */
 
 export default hot(module)(App);

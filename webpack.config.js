@@ -105,12 +105,13 @@ webpackConfig.optimization = {
 // ------------------------------------
 const BABEL_LOADER_PLUGINS = [
   // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
+  '@babel/plugin-syntax-dynamic-import',
   ['@babel/plugin-proposal-decorators', {legacy: true}],
-  ['@babel/plugin-proposal-class-properties', {loose: true}],
+  ['@babel/plugin-proposal-class-properties', {loose: true}]
 ];
 
 if (__DEBUG__) {
-  BABEL_LOADER_PLUGINS.push('react-hot-loader/babel')
+  BABEL_LOADER_PLUGINS.push('react-hot-loader/babel');
 }
 
 // TypeScript / JSON
@@ -134,7 +135,7 @@ webpackConfig.module.rules = [
               {targets: {browsers: 'last 2 versions'}} // or whatever your project requires
             ],
             '@babel/preset-typescript',
-            '@babel/preset-react'
+            '@babel/preset-react',
           ],
           plugins: BABEL_LOADER_PLUGINS
         }
@@ -216,7 +217,7 @@ webpackConfig.module.rules.push({
 });
 
 // 合并 webpack 配置
-export default  webpackMerge(
+export default webpackMerge(
   webpackConfig,  // 默认配置
   require(`./build/webpack.${__ENV__}.config`)(config) // 根据环境变量，载入 Webpack 配置
 );
