@@ -7,10 +7,11 @@
   "scripts": {
     "clean": "rimraf dist",
     "start": "better-npm-run start",
-    "start:dist": "better-npm-run start:dist",
     "compile": "better-npm-run compile",
     "deploy": "better-npm-run deploy",
-    "dist": "better-npm-run dist"
+    "dist": "better-npm-run dist",
+    "dist:preview": "better-npm-run preview",
+    "report": "better-npm-run report"
   },
   "betterScripts": {
     "start": {
@@ -19,24 +20,15 @@
         "DEBUG": "app:*"
       }
     },
-    "start:dist": {
-      "command": "babel-node bin/server",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    },
     "compile": {
       "command": "babel-node bin/compile",
       "env": {
-        "NODE_ENV": "production",
         "DEBUG": "app:*"
       }
     },
     "deploy": {
       "command": "rimraf dist && babel-node bin/compile",
       "env": {
-        "NODE_ENV": "production",
         "DEBUG": "app:*"
       }
     },
@@ -46,16 +38,30 @@
         "NODE_ENV": "production",
         "DEBUG": "app:*"
       }
+    },
+    "dist:preview": {
+      "command": "npm run deploy && babel-node bin/server",
+      "env": {
+        "NODE_ENV": "preview",
+        "DEBUG": "app:*"
+      }
+    },
+    "report": {
+      "command": "npm run deploy && babel-node bin/server",
+      "env": {
+        "NODE_ENV": "production",
+        "ANLYZER_REPORT": true,
+        "DEBUG": "app:*"
+      }
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/niklaus0823/react_kit.git"
+    "url": "git+https://github.com/niklaus0823/react-typescript-starter.git"
   },
   "author": "fengjie",
   "license": "MIT",
   "dependencies": {
-    "@types/antd": "^1.0.0",
     "@types/mz": "0.0.32",
     "@types/react": "^16.7.6",
     "@types/react-dom": "^16.0.11",
@@ -63,10 +69,7 @@
     "@types/react-router": "^4.4.1",
     "@types/react-router-dom": "^4.3.1",
     "@types/underscore": "^1.8.9",
-    "antd": "^3.11.0",
     "axios": "^0.18.0",
-    "mobx": "^5.7.0",
-    "mobx-react": "^5.4.2",
     "mz": "^2.7.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -122,6 +125,7 @@
     "typescript": "^3.2.2",
     "url-loader": "^1.1.2",
     "webpack": "^4.26.0",
+    "webpack-bundle-analyzer": "^3.1.0",
     "webpack-dev-middleware": "^3.4.0",
     "webpack-hot-middleware": "^2.24.3",
     "webpack-merge": "^4.1.4",

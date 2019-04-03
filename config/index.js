@@ -6,9 +6,11 @@ const version = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').r
 // ========================================================
 // 默认配置
 // ========================================================
+
 const config = {
   env: process.env.NODE_ENV || 'development',
   version: version,
+  bundleAnalyzerReport: process.env.ANLYZER_REPORT || false,
 
   // ----------------------------------
   // 项目文件夹配置
@@ -21,7 +23,7 @@ const config = {
   // 项目服务器配置
   // ----------------------------------
   server_host: '127.0.0.1', // use string 'localhost' to prevent exposure on local network
-  server_port: process.env.PORT || 8080,
+  server_port: process.env.PORT || 80,
   server_public_path: '/',
   server_plugins_gzip: {
     enabled: false
