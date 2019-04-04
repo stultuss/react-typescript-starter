@@ -14,10 +14,10 @@ Ideal for creating React apps from the scratch.
 ### Contains
 
 - [x] **Typescript** 3.2
-- [x] **React** 16.6
-- [x] **React Router** 4.3
+- [x] **React** 16.8.6
+- [x] **React Router** 5.0.0
 - [x] **Koa** 2.6
-- [ ] Redux
+- [x] **MobX** 5.9
 
 ### Build Tools
 

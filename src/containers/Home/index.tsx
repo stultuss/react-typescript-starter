@@ -1,25 +1,29 @@
 import * as React from 'react';
-import BaseComponent from '../BaseComponent';
-import './index.scss';
+import {Link} from 'react-router-dom';
+import {renderRoutes, RouteConfig} from 'react-router-config';
 
-interface Props {
+type IProps = {
+  route?: RouteConfig
 }
 
-interface State {
-}
+class App extends React.Component<IProps> {
 
-class App extends BaseComponent<Props, State> {
-
-  constructor(props: Props) {
+  constructor(props: IProps) {
     super(props);
   }
 
   render() {
+    const {route} = this.props;
     return (
-      <div id={'home'}>
-        <h1>Hello World</h1>
-        <div id={'img1'} className={'img'}/>
-        <div id={'img2'} className={'img'}/>
+      <div>
+        <h1>Home Page</h1>
+        <h3>Links</h3>
+        <ul>
+          <li><Link to={'/'}>Home</Link></li>
+          <li><Link to={'/home/user'}>User</Link></li>
+          <li><Link to={'/home/path'}>PathParams</Link></li>
+        </ul>
+        {renderRoutes(route.routes)}
       </div>
     );
   }

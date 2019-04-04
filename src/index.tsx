@@ -1,41 +1,22 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
-import AppContainer from './containers/App';
+import App from './containers/App';
 
-// ========================================================
-// Render Setup
-// ========================================================
-let node = document.getElementById('wrapper');
-let render = () => {
-    ReactDom.render(
-        <BrowserRouter>
-            <AppContainer/>
-        </BrowserRouter>,
-        node
-    );
+import {createStore} from './store';
+
+declare var window: {
+  __INITIAL_STATE__: any,
+  location: {
+    pathname: string
+  }
 };
 
-// ========================================================
-// Redbox Plugin
-// ========================================================
-if (process.env.NODE_ENV === 'development' && module.hot) {
-    const renderApp = render;
-    const renderError = (error) => {
-        const RedBox = require('redbox-react');
-        ReactDom.render(<RedBox error={ error }/>, node);
-    };
+console.info(`[当前环境] ${process.env.NODE_ENV}`);
+console.info(`[当前路径] ${window.location.pathname}`);
 
-    render = () => {
-        try {
-            return renderApp();
-        } catch (error) {
-            renderError(error);
-        }
-    };
-}
+const stores = createStore(window.__INITIAL_STATE__);
 
 // ========================================================
 // Go!
 // ========================================================
-render();
+ReactDom.render(<App stores={stores}/>, document.getElementById('wrapper'));
