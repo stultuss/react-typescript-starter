@@ -1,6 +1,5 @@
-# React Typescript Starter
+React Typescript Starter
 =========================
-
 [![Build][travis-image]][travis-url]
 [![Linux Build][travis-linux-image]][travis-linux-url]
 [![Windows Build][travis-windows-image]][travis-windows-url]
