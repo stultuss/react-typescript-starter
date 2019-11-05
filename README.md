@@ -42,7 +42,7 @@ Ideal for creating React apps from the scratch.
 
 - [x] Async loading of components
 - [x] Server-Side Rendering
-- [ ] Testing Framework
+- [x] Testing Framework
 
 ## Installation
 
@@ -66,7 +66,13 @@ $ npm start 							// Starting the development environment
 $ npm run report
 ```
 
-3. Other Examples
+3. Test Framework
+
+```bash
+$ npm run test
+```
+
+4. Other Examples
 
 ```bash
 $ npm run preview 		            // Starting the preview environment 
