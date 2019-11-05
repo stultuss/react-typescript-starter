@@ -1,4 +1,9 @@
 # React Typescript Starter
+=========================
+[![Build][travis-image]][travis-url]
+[![Linux Build][travis-linux-image]][travis-linux-url]
+[![Windows Build][travis-windows-image]][travis-windows-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
 
 > This starter kit is designed  to help you up and running react app for rapid development
 
@@ -64,8 +69,8 @@ $ npm run report
 3. Other Examples
 
 ```bash
-$ npm run dist  					// Starting the production environment 
 $ npm run preview 		            // Starting the preview environment 
+$ npm run prod  					// Starting the production environment 
 ```
 
 ### Enable 
@@ -78,7 +83,6 @@ $ vi ./config/environments.js
 
 ```typescript
 export default {
-  ...
   // ======================================================
   // Overrides when NODE_ENV === 'production'
   // ======================================================
@@ -87,7 +91,6 @@ export default {
       enabled: true // Enable Server-Side Rendering
     },
   }),
-  ...
 };
 
 ```
@@ -100,7 +103,7 @@ $ vi ./src/containers/Page1/index.tsx
 
 Please use react-loadable demo
 
-```typescript
+```typescript jsx
 import * as React from 'react';
 import * as Loadable from 'react-loadable';
 
@@ -125,3 +128,12 @@ $ npm run deploy
 # License
 
 MIT
+
+[travis-image]: https://travis-ci.org/stultuss/react-typescript-starter.svg?branch=master
+[travis-url]: https://travis-ci.org/stultuss/react-typescript-starter
+[travis-linux-image]: https://img.shields.io/travis/stultuss/react-typescript-starter/master.svg?label=linux
+[travis-linux-url]: https://travis-ci.org/stultuss/react-typescript-starter
+[travis-windows-image]: https://img.shields.io/travis/stultuss/react-typescript-starter/master.svg?label=windows
+[travis-windows-url]: https://travis-ci.org/stultuss/react-typescript-starter
+[coveralls-image]: https://img.shields.io/coveralls/stultuss/react-typescript-starter/master.svg
+[coveralls-url]: https://coveralls.io/r/stultuss/react-typescript-starter?branch=master

@@ -5,6 +5,7 @@
   "private": true,
   "main": "./dist/index.js",
   "scripts": {
+    "start": "better-npm-run dev",
     "clean": "rimraf dist",
     "compile": "better-npm-run compile",
     "deploy": "better-npm-run deploy",
