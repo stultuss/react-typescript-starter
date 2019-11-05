@@ -78,7 +78,12 @@ module.exports = {
   //   "node"
   // ],
   moduleFileExtensions: [
-    'js'
+    'ts',
+    'tsx',
+    'js',
+    'jsx',
+    'json',
+    'node'
   ],
   
   // A map from regular expressions to module names that allow to stub out resources with a single module
@@ -90,8 +95,8 @@ module.exports = {
     'bin',
     'build',
     'config',
+    'webpack',
     'server',
-    'src',
     // 'mocks',
     // 'coverage',
     // 'jest.config.js'
@@ -158,10 +163,6 @@ module.exports = {
   //   '**/__tests__/**/*.[jt]s?(x)',
   //   '**/?(*.)+(spec|test).[tj]s?(x)'
   // ]
-  testMatch: [
-    '**/tests/**/*.[jt]s?(x)',
-    '**/?(*.)+(spec|test).[tj]s?(x)'
-  ]
   
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
@@ -170,6 +171,9 @@ module.exports = {
   
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
+
+  testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+
   
   // This option allows the use of a custom results processor
   // testResultsProcessor: null,
@@ -185,6 +189,9 @@ module.exports = {
   
   // A map from regular expressions to paths to transformers
   // transform: null,
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+  },
   
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [

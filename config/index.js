@@ -23,7 +23,7 @@ const config = {
   // 项目服务器配置
   // ----------------------------------
   server_host: '127.0.0.1', // use string 'localhost' to prevent exposure on local network
-  server_port: process.env.PORT || 8080,
+  server_port: process.env.PORT || 80,
   server_public_path: '/',
   server_plugins_gzip: {
     enabled: false
