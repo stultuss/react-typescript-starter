@@ -65,7 +65,7 @@ $ npm run report
 
 ```bash
 $ npm run dist  					// Starting the production environment 
-$ npm run dist:preview 		// Starting the preview environment 
+$ npm run preview 		            // Starting the preview environment 
 ```
 
 ### Enable 

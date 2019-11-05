@@ -50,14 +50,14 @@ webpackConfig.output = {
 // ------------------------------------
 webpackConfig.plugins = [
   // 由于使用 babel-loader 替换了 ts-loader，所以 Babel 不会检查代码，此处需要额外添加 TsChecker 作为构建过程的一部分。
-  new ForkTsCheckerPlugin(),
+  new ForkTsCheckerPlugin()
 ];
 
 // ------------------------------------
 // Optimization
 // ------------------------------------
 webpackConfig.optimization = {
-  minimize: false, // 开启代码压缩
+  minimize: false // 开启代码压缩
 };
 
 // ------------------------------------
@@ -94,7 +94,7 @@ webpackConfig.module.rules = [
           ]
         }
       }
-    ],
+    ]
   },
   {
     test: /\.(png|jpg|jpeg|gif|svg)$/,
@@ -104,7 +104,7 @@ webpackConfig.module.rules = [
         options: {
           // limit: 4096, // 4k 以下的图片，都进行 base64
           limit: 1024, // 4k 以下的图片，都进行 base64
-          name: `assets_${config.version}/img/[name].[hash:8].[ext]`, // 这里没有 chunkhash 的计算
+          name: `assets_${config.version}/img/[name].[hash:8].[ext]` // 这里没有 chunkhash 的计算
         }
       }
     ]
@@ -123,7 +123,7 @@ BASE_CSS_LOADER_USE.push({
   options: {
     modules: false,
     importLoaders: 1,
-    minimize: false,  // 将使用 postcss 和 cssnano 进行最小化，所以此处不需要重复最小化
+    minimize: false  // 将使用 postcss 和 cssnano 进行最小化，所以此处不需要重复最小化
   }
 });
 
@@ -142,7 +142,7 @@ BASE_CSS_LOADER_USE.push({
 // CSS-Loader
 webpackConfig.module.rules.push({
   test: /\.css$/,
-  use: BASE_CSS_LOADER_USE,
+  use: BASE_CSS_LOADER_USE
 });
 
 // SCSS-loader
@@ -152,7 +152,7 @@ webpackConfig.module.rules.push({
     {
       loader: 'sass-loader'
     }
-  ]),
+  ])
 });
 
 // 合并 webpack 配置

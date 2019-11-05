@@ -19,19 +19,19 @@ module.exports = (config) => {
     output: {},
     plugins: [],
     optimization: {},
-    module: {},
+    module: {}
   };
-
+  
   // ------------------------------------
   // Entry Points
   // ------------------------------------
   webpackConfig.entry = {
     main: [
       `react-hot-loader/patch`,  // 启用 react HMR
-      `webpack-hot-middleware/client?path=${config.server_public_path}__webpack_hmr`,  // 启用 html & css HMR
-    ],
+      `webpack-hot-middleware/client?path=${config.server_public_path}__webpack_hmr`  // 启用 html & css HMR
+    ]
   };
-
+  
   // ------------------------------------
   // Bundle Output
   // ------------------------------------
@@ -41,7 +41,7 @@ module.exports = (config) => {
     chunkFilename: `assets_${config.version}/[name].js`,
     publicPath: config.server_public_path
   };
-
+  
   // ------------------------------------
   // Plugins
   // ------------------------------------
@@ -50,20 +50,20 @@ module.exports = (config) => {
   // debug('步骤2：~/webpack.config.js 的 plugins 配置 new webpack.HotModuleReplacementPlugin()');
   // debug('步骤3：~/server/index.js 中 koa 使用 webpack-dev-middleware 中间件');
   // debug('步骤4：~/server/index.js 中 koa 使用 webpack-hot-middleware 中间件');
-
+  
   webpackConfig.plugins = [
-    new webpack.HotModuleReplacementPlugin(), // 启用 HMR
+    new webpack.HotModuleReplacementPlugin() // 启用 HMR
     // new webpack.DefinePlugin({ "process.env.NODE_ENV": JSON.stringify('development') }) // 开发模式：默认 development
     // new webpack.NoEmitOnErrorsPlugin(), // 生产模式：默认开启 => optimization.noEmitOnErrors = true
     // new webpack.NamedModulesPlugin(), // 开发模式：默认开启 => optimization.namedModules = true
   ];
-
+  
   // ------------------------------------
   // Optimizations
   // ------------------------------------
   webpackConfig.optimization = {
-    minimize: false, // 关闭代码压缩，提升编译速度
+    minimize: false // 关闭代码压缩，提升编译速度
   };
-
+  
   return webpackConfig;
 };

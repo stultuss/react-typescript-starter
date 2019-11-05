@@ -51,6 +51,7 @@ const webpackConfig = {
       chunks: 'async',
       // Minimum size for a chunk to be generated.
       minSize: 30000,
+      maxSize: 250000,
       // Minimum number of chunks that must share a module before splitting.
       minChunks: 1,
       // Maximum number of parallel requests when on-demand loading.
@@ -81,8 +82,8 @@ const webpackConfig = {
      *  * single: creates a runtime file to be shared for all generated chunks.
      *  * multiple: creates multiple runtime files for common chunks.
      */
-    runtimeChunk: false,
-  },
+    runtimeChunk: false
+  }
 };
 
 switch (webpackConfig.mode) {
@@ -103,13 +104,13 @@ switch (webpackConfig.mode) {
       // 使缓存方式变的更激进，官方解释: ’catch everything, but unsafe’，依赖于 cache 开启
       // bad: 内存占用↑
       // good：构建速度↑↑
-      unsafeCache: true,
+      unsafeCache: true
     };
     webpackConfig.output = {
       // 在构建产出的 bundle 中引入当前段落包含模块信息的相关注释
       // bad: 包体积↑
       // good：代码可读性↑
-      pathinfo: true,
+      pathinfo: true
     };
     webpackConfig.optimization = Object.assign({
       // 给模块更容易识别的名称，取代用 ids 命名。
@@ -119,7 +120,7 @@ switch (webpackConfig.mode) {
       // 给 chunk 更容易识别的名称，取代用 ids 命名。
       // bad: 包体积↑
       // good：调试难度↓
-      namedChunks: true,
+      namedChunks: true
     }, webpackConfig.optimization);
     break;
   case 'production':
@@ -169,7 +170,7 @@ switch (webpackConfig.mode) {
       // 编译错误时，不会输出编译错误的 bundle
       // bad: unable to use working part application
       // good：no broken bundle
-      noEmitOnErrors: true,
+      noEmitOnErrors: true
     }, webpackConfig.optimization);
     break;
 }

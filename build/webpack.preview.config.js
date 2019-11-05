@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
 module.exports = (config) => {
-
+  
   // ========================================================
   //  Webpack 默认配置（生产模式）
   //  <pre>
@@ -23,12 +23,14 @@ module.exports = (config) => {
     plugins: [],
     optimization: {},
     module: {},
+    // 预审环境设置较大防止警告
     performance: {
+      hints: false, // false | "error" | "warning" // 不显示性能提示 | 以错误形式提示 | 以警告...
       maxEntrypointSize: 512000, // 入口最大依赖文件大小设置为 500 KiB
       maxAssetSize: 512000 // 单个资源文件大小设置为 500 KiB
     }
   };
-
+  
   // ------------------------------------
   // Bundle Output
   // ------------------------------------
@@ -37,7 +39,7 @@ module.exports = (config) => {
     chunkFilename: `assets_${config.version}/[name].[chunkhash:8].js`,
     publicPath: config.server_public_path
   };
-
+  
   // ------------------------------------
   // Plugins
   // ------------------------------------
@@ -61,17 +63,21 @@ module.exports = (config) => {
       },
       canPrint: true
     }),
-    new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('preview')}), // 生产模式：默认 production，所以要手动修改
+    new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('preview')}) // 生产模式：默认 production，所以要手动修改
     // new webpack.NoEmitOnErrorsPlugin(), // 生产模式：默认开启 => optimization.noEmitOnErrors = true
     // new webpack.optimize.ModuleConcatenationPlugin(), // 生产模式：默认开启 => optimization.ModuleConcatenationPlugin = true
   ];
-
+  
   // ------------------------------------
   // Optimizations
   // ------------------------------------
   webpackConfig.optimization = {
     minimize: true, // 开启代码压缩
+    splitChunks: {  // 开启代码分拆
+      minSize: 250000,
+      maxSize: 500000
+    }
   };
-
+  
   return webpackConfig;
 };
