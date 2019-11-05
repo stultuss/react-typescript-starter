@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - '10'
+  - '8'
+  - '6'
+os:
+  - linux
+  - windows
+sudo: true
+install:
+  # npm install
+  - npm install
+script:
+  # Run test script
+  - npm run compile
