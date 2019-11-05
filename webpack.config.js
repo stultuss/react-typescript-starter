@@ -225,5 +225,5 @@ webpackConfig.module.rules.push({
 // 合并 webpack 配置
 export default webpackMerge(
   webpackConfig,  // 默认配置
-  require(`./build/webpack.${__ENV__}.config`)(config), // 根据环境变量，载入 Webpack 配置
+  require(`./webpack/webpack.${__ENV__}.config`)(config), // 根据环境变量，载入 Webpack 配置
 );

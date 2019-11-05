@@ -42,7 +42,7 @@ const webpackCompiler = (webpackConfig) => {
   try {
     if (__SSR__) {
       debug('Webpack SSR 编译开始');
-      const stats = await webpackCompiler(require('../build/webpack.ssr.config').default);
+      const stats = await webpackCompiler(require('../webpack/webpack.ssr.config').default);
       if (stats.hasWarnings() || stats.hasErrors()) {
         debug('Webpack SSR 编译中出现警告，退出编译.');
         process.exit(1);
