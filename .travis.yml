@@ -13,4 +13,4 @@ install:
   - npm install
 script:
   # Run test script
-  - npm run dev
+  - npm run compile
