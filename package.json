@@ -60,7 +60,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/niklaus0823/react-typescript-starter.git"
+    "url": "git+https://github.com/stultuss/react-typescript-starter.git"
   },
   "author": "fengjie",
   "license": "MIT",
