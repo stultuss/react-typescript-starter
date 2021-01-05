@@ -74,7 +74,7 @@
     "@types/react-router-config": "^1.1.2",
     "@types/react-router-dom": "^4.3.5",
     "@types/underscore": "^1.9.3",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "mobx": "^5.14.2",
     "mobx-react": "^5.4.3",
     "mobx-react-devtools": "^6.1.1",
