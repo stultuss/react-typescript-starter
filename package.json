@@ -134,7 +134,7 @@
     "rimraf": "^2.7.1",
     "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
-    "tar": "^5.0.5",
+    "tar": "^5.0.10",
     "ts-jest": "^24.1.0",
     "typescript": "^3.6.4",
     "url-loader": "^1.1.2",
