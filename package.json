@@ -1,148 +1,54 @@
 {
   "name": "react-typescript-starter",
-  "version": "1.0.0",
-  "description": "A tool for quickly building the react app.",
+  "version": "2.0.0",
+  "description": "A modern React + TypeScript starter with SSR, code splitting, state management and testing.",
   "private": true,
-  "main": "./dist/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "test": "jest",
-    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "start": "better-npm-run dev",
-    "clean": "rimraf dist",
-    "compile": "better-npm-run compile",
-    "deploy": "better-npm-run deploy",
-    "dev": "better-npm-run dev",
-    "preview": "better-npm-run preview",
-    "prod": "better-npm-run prod",
-    "report": "better-npm-run report"
+    "dev": "tsx watch server/index.ts",
+    "dev:no-ssr": "vite",
+    "build": "npm run typecheck && vite build && vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "start": "cross-env NODE_ENV=production tsx server/index.ts",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
-  "betterScripts": {
-    "compile": {
-      "command": "babel-node bin/compile",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy": {
-      "command": "rimraf dist && babel-node bin/compile",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "dev": {
-      "command": "babel-node bin/server",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "preview": {
-      "command": "npm run deploy && babel-node bin/server",
-      "env": {
-        "NODE_ENV": "preview",
-        "DEBUG": "app:*"
-      }
-    },
-    "prod": {
-      "command": "npm run deploy && babel-node bin/server",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    },
-    "report": {
-      "command": "npm run deploy && babel-node bin/server",
-      "env": {
-        "NODE_ENV": "production",
-        "ANLYZER_REPORT": true,
-        "DEBUG": "app:*"
-      }
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stultuss/react-typescript-starter.git"
-  },
-  "author": "fengjie",
-  "license": "MIT",
   "dependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/mz": "0.0.32",
-    "@types/react": "^16.9.11",
-    "@types/react-dom": "^16.9.3",
-    "@types/react-loadable": "^5.5.2",
-    "@types/react-router": "^4.4.5",
-    "@types/react-router-config": "^1.1.2",
-    "@types/react-router-dom": "^4.3.5",
-    "@types/underscore": "^1.9.3",
-    "axios": "^0.18.1",
-    "mobx": "^5.14.2",
-    "mobx-react": "^5.4.3",
-    "mobx-react-devtools": "^6.1.1",
-    "mz": "^2.7.0",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "react-loadable": "^5.5.0",
-    "react-router": "^5.1.2",
-    "react-router-config": "^5.1.1",
-    "react-router-dom": "^5.1.2",
-    "underscore": "^1.9.1"
+    "koa": "^3.2.1",
+    "koa-compress": "^5.2.2",
+    "koa-static": "^5.0.0",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/node": "^7.6.3",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-decorators": "^7.6.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/polyfill": "^7.6.0",
-    "@babel/preset-env": "^7.6.3",
-    "@babel/preset-react": "^7.6.3",
-    "@babel/preset-typescript": "^7.6.0",
-    "@babel/runtime": "^7.6.3",
-    "@types/debug": "0.0.31",
-    "@types/jest": "^24.0.21",
-    "@types/koa": "^2.0.51",
-    "@types/koa-static": "^4.0.0",
-    "@types/node": "^10.17.3",
-    "@types/webpack-env": "^1.14.1",
-    "autoprefixer": "^9.7.1",
-    "babel-loader": "^8.0.0",
-    "better-npm-run": "^0.1.1",
-    "caniuse-lite": "^1.0.30001008",
-    "coveralls": "^3.0.7",
-    "css-loader": "^1.0.1",
-    "cssnano": "^4.1.7",
-    "debug": "^4.1.0",
-    "file-loader": "^2.0.0",
-    "fork-ts-checker-webpack-plugin": "^0.5.0",
-    "fs-extra": "^7.0.1",
-    "html-webpack-plugin": "^3.2.0",
-    "inline-manifest-webpack-plugin": "^4.0.2",
-    "jest": "^24.9.0",
-    "json-loader": "^0.5.7",
-    "koa": "^2.11.0",
-    "koa-compress": "^3.0.0",
-    "koa-connect-history-api-fallback": "^0.3.1",
-    "koa-proxy": "^0.9.0",
-    "koa-static": "^5.0.0",
-    "mini-css-extract-plugin": "^0.4.5",
-    "node-sass": "^4.13.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "postcss-import": "^12.0.1",
-    "postcss-loader": "^3.0.0",
-    "react-hot-loader": "^4.12.15",
-    "rimraf": "^2.7.1",
-    "sass-loader": "^7.3.1",
-    "style-loader": "^0.23.1",
-    "tar": "^5.0.5",
-    "ts-jest": "^24.1.0",
-    "typescript": "^3.6.4",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.41.2",
-    "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-dev-middleware": "^3.7.2",
-    "webpack-hot-middleware": "^2.24.3",
-    "webpack-merge": "^4.2.2",
-    "webpack-node-externals": "^1.7.2"
+    "@eslint/js": "^9.20.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@types/koa": "^3.0.0",
+    "@types/koa-static": "^4.0.4",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.5.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.20.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
+    "jsdom": "^26.0.0",
+    "sass": "^1.80.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.20.0",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.0"
   }
 }
