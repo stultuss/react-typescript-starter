@@ -78,8 +78,6 @@ npm install
 
 ## 它想教会你的
 
-它生前最骄傲的五件事，现在陈列在器官罐里：
-
 1. **服务端渲染**：首屏完整 HTML + `window.__INITIAL_STATE__` hydration
 2. **路由级代码分割**：SSR 友好的 `lazyRoute`，无 loading 闪现——这是它 2018 年没做到、2026 年才补上的遗憾
 3. **数据预取**：`loadData` 在服务器渲染前执行。是的，这就是 Next.js 的原型
