@@ -1,6 +1,6 @@
 # React TypeScript Starter
 
-**讣告 / Obituary · 2014 — 2019（2026 年 8 月 11 日安葬）**
+**讣告 / Obituary · 2016 — 2019（2026 年 8 月 11 日安葬）**
 
 > 它曾是一个起点。现在它是一块墓碑。 
 
@@ -10,7 +10,7 @@
 
 这是一个项目讣告。
 
-它出生于 2014 年。彼时 React 才 0.12，TypeScript 刚满 1.0，webpack 还是个婴儿。
+它出生于 2016 年。彼时 React 15 刚发布，Redux 正当红，React Native 正在爆炸，TypeScript 2 刚刚成年。
 
 它的主人是一位好奇的服务端工程师，对前端所知甚少，把 flux 架构画成了图，把 JS 内存模型啃成了笔记，然后决定手搓一切。
 
@@ -23,6 +23,41 @@
 答案是：**概念有，代码没有。**
 
 于是它成了标本。
+
+---
+
+## 技术演进史（代际更迭）
+
+它的一生跨越了三代状态管理（Flux → Redux → MobX）、三代服务端框架（Koa 1 → 2 → 3）与从 webpack 到 Vite 的整个构建时代。2018 年之后的部分有 git 作证；2018 年之前的部分来自主人记忆——最早的版本，连主人也记不清了。
+
+| 年代 | 状态管理 | 服务端 | 同期关键事 |
+| --- | --- | --- | --- |
+| 2016 雏形 | Flux → Redux | Koa 1（generator 时代，版本已不可考）→ Koa 2 | React 15、React Router、react-hot-loader；生产环境运行中（主人记忆中） |
+| 2017–18 回炉 | Redux | Koa 2 | 2018-12 补上 SSR 与异步拆包；antd 3 短暂入驻（2018-12 ～ 2019-04） |
+| 2019 末年 | MobX 5（decorator 语法） | Koa 2 | react-router-config 5（路由即数据）、react-loadable、jest、Travis CI、coveralls；dependabot 留下最后的遗言 |
+| 2026 安葬 | MobX 6（工厂式，SSR 安全） | Koa 3 | React 19、Vite 7、React Router 7、Vitest、GitHub Actions |
+
+几件它自己记得的事：
+
+- `loadData` 贯穿 Redux 与 MobX 两代，死后在 Next.js 里改了姓（`loader` / `getServerSideProps`）；
+- Koa 1 的具体版本已无人记得——那是 `yield` 满地都是的年代；
+- 它出生时正赶上 Flux 到 Redux 的交接，2019 年换成 MobX 5，2026 年换成 MobX 6——状态管理换代从一年一次变成七年一次：不是它懒，是生态终于稳定了。
+
+### 按提交的工具演进（2018-12 开源后，git 作证）
+
+- **2018-12-04 `ec42849` version init**：webpack 4 + Babel 6 + ts-loader 5 + TypeScript 3；Koa 2 全家桶（static / compress / proxy / history-api-fallback）；react-hot-loader、better-npm-run、debug、rimraf；css-loader / style-loader / sass-loader / node-sass / postcss（import / autoprefixer / cssnano）/ mini-css-extract-plugin / optimize-css-assets-webpack-plugin；html-webpack-plugin、inline-manifest-webpack-plugin、url-loader、json-loader；axios、underscore、normalize.css、mz
+- **2018-12-04 `57b7910` Babel 7**：Babel 6 → @babel/* 7（preset-env / preset-react / preset-typescript、decorators、class-properties）；babel-loader 8 + fork-ts-checker-webpack-plugin + tslint / tslint-react；webpack-cli 下线
+- **2018-12-05 `fe36ea1` 图片策略**：file-loader 入列、url-loader 调参，雪碧图退役
+- **2018-12-06 `3017f4d` react-router**：react-router 4 + react-router-dom；antd 3 短暂入驻；ts-loader 退役（改由 Babel 剥类型 + fork-ts-checker 兜底）；fs-extra；项目更名 react-typescript-starter
+- **2018-12-07 `3448998` SSR**：webpack-node-externals、SSR 构建配置、production 启动脚本
+- **2018-12-12 `a87d003` 异步拆包**：react-loadable 5 + @babel/plugin-syntax-dynamic-import
+- **2019-04-03 `8f7aaf0`**：README 更新；antd 3 离场——它只短暂存在了四个月
+- **2019-04-04 `21059d6` MobX**：mobx 5 + mobx-react + mobx-react-devtools；react-router-config 5（路由即数据）；react 16.6 → 16.8，react-router 4 → 5
+- **2019-05-22 `0cd1d56`**：tar 安全补丁
+- **2019-11-05**：dependabot 批量升级（mixin-deep、lodash、axios）；Travis CI + coveralls 入驻；jest 24 + ts-jest + @types/jest 与首批测试用例；scripts 重构出 dev / preview / prod / report
+- **2019-11-06 `50e110e`**：仓库地址 niklaus0823 → stultuss
+- **2020-01-07 `2c798dd`**：最终快照，版本号定格
+- **2026-08-11 `4f8dfde` 现代化改造**：Vite 7 + React 19 + TypeScript 5 + Koa 3 + MobX 6 + React Router 7 + Vitest + ESLint 9 + cross-env + tsx + GitHub Actions；node-sass → sass、react-hot-loader → Vite HMR、react-loadable → lazyRoute、Travis / coveralls → GitHub Actions、better-npm-run → 原生 scripts、mobx-react → mobx-react-lite
 
 ---
 
@@ -109,7 +144,7 @@ npm install
 
 ## 告别
 
-它活了十二年，其中六年半是标本。
+它活了十年，其中六年半是标本。
 
 此致，敬礼。
 
